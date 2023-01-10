@@ -42,7 +42,6 @@ Route::get('test_model_validate/', 'api/v1.Sample/useValidate');
 //Token接口相关
 Route::get('api/:version/token/user', 'api/:version.Token/getUserToken');
 
-
 //地址接口
 Route::post('api/:version/address', 'api/:version.Address/createOrUpdateAddress');
 

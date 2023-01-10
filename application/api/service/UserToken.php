@@ -9,6 +9,7 @@
 
 
 namespace app\api\service;
+use app\lib\enum\scopeEnum;
 use app\lib\exception\CacheException;
 use app\lib\exception\TokenException;
 use app\api\model\User as UserModel;
@@ -102,7 +103,7 @@ class UserToken extends Token
      * */
     protected static function prepareCacheValue($wxResult,$uid){
         $wxResult['uid'] = $uid;
-        $wxResult['scope'] = config('scope.USER');
+        $wxResult['scope'] = scopeEnum::user;
         return $wxResult;
     }
 
@@ -118,6 +119,7 @@ class UserToken extends Token
             return new CacheException();
         }
     }
+
 
 
 }

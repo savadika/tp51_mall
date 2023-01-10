@@ -9,5 +9,5 @@
 
 return [
     'USER' => 16,
-    'MANAGER' => 32
+    'SUPER' => 32
 ];

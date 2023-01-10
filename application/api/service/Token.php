@@ -10,6 +10,8 @@
 
 namespace app\api\service;
 
+use app\lib\enum\scopeEnum;
+use app\lib\exception\PermissionException;
 use app\lib\exception\TokenException;
 use think\Exception;
 use think\facade\Cache;
@@ -59,5 +61,32 @@ class Token
             return $uid;
         }
 
+        /*
+        * 用户和超级管理员都需要的权限
+        * */
+        public static function needPrimaryScope(){
+            $scope = self::getCacheValueByToken('scope');
+            if($scope){
+                if($scope >= scopeEnum::user){
+                    return true;
+                }else{
+                    throw new PermissionException();
+                }
+            }
+        }
+
+        /*
+         * 仅限用户访问的权限
+         * */
+        public static function needUserOnlyScope(){
+            $scope = self::getCacheValueByToken('scope');
+            if($scope){
+                if($scope = scopeEnum::user){
+                    return true;
+                }else{
+                    throw new PermissionException('权限仅限用户访问');
+                }
+            }
+        }
 
 }

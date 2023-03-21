@@ -14,7 +14,6 @@ use app\api\controller\BaseController;
 use app\api\validate\AddressNew;
 use app\lib\exception\SuccessMsg;
 use app\lib\exception\UserException;
-use think\Controller;
 use app\api\service\Token as TokenService;
 use app\api\model\User as UserModel;
 use app\api\model\UserAddress as UserAddressModel;
@@ -27,7 +26,6 @@ class Address extends BaseController
         // checkPrimaryScope前置方法将作用于createOrUpdateAddress
         'checkPrimaryScope' =>['only' =>'createOrUpdateAddress']
     ];
-
 
     /*
      * 新增用户地址接口，需要调用token

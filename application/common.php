@@ -43,3 +43,15 @@ function GetRandStr($length){
     }
     return $randstr;
 }
+
+/*
+ * 将数组中的product_id替换为id
+ * */
+function changeIdName($arr){
+    foreach($arr as &$single){
+        $single['id'] = $single['product_id'];
+        unset($single['product_id']);
+    }
+    return $arr;
+}
+

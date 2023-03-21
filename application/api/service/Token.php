@@ -61,6 +61,27 @@ class Token
             return $uid;
         }
 
+
+        /*
+         * 判断当前用户是否和token对应的用户一致
+         * */
+        public static function isValidUser($uid){
+            $current_uid = self::getUidByToken();
+            if($uid == $current_uid){
+                return true;
+            }else{
+                return false;
+            }
+        }
+
+
+        /*
+         * 获取Token的值
+         * */
+        public static function getToken(){
+            return Request::instance()->header('token');
+        }
+
         /*
         * 用户和超级管理员都需要的权限
         * */

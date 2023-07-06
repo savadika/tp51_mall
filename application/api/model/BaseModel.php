@@ -21,4 +21,19 @@ class BaseModel extends Model
         }
         return $finalUrl;
     }
+
+    // 通用增加数据方法
+    protected function addData(){
+    }
+
+    // 通用编辑数据方法
+    protected function editData(){
+
+    }
+
+    // 通用删除数据方法
+    protected function deleteData(){
+
+    }
+
 }

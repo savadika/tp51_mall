@@ -28,7 +28,6 @@ class Pay extends BaseController
         'checkUserOnlyScope' =>['only' =>'getPreOrder']
     ];
 
-
     // 生成预订单
     // 1 根据订单编号检查当前的库存量
     // 2 调用微信支付的api

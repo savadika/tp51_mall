@@ -12,9 +12,13 @@ namespace app\api\controller\v1;
 
 
 use app\api\controller\BaseController;
+use app\api\validate\IdMustBeInt;
+use app\api\validate\OrderSummaryValidate;
 use app\api\validate\OrderValidate;
 use app\api\service\Order as orderService;
 use think\facade\Request;
+use app\api\service\Token as tokenService;
+use app\api\model\Order as OrderModel;
 
 class Order extends BaseController
 {
@@ -60,5 +64,38 @@ class Order extends BaseController
         $data = $orderService->place($products);
         return json($data);
     }
+
+
+    // 获取订单列表接口    orders?page=1&size=5
+    public function getSummaryOrders($page=1,$size=5){
+        (new OrderSummaryValidate())->goCheck();
+        // 通过token去获取用户的uid
+        $uid = tokenService::getUidByToken();
+        $orderModel = new OrderModel();
+        $pagData = $orderModel->getSummaryByUid($uid,$page,$size);
+        if($pagData->isEmpty()){
+            return null;
+        }
+        $data = [
+            'current_page'=>$pagData->getCurrentPage(),
+            //问题：data:data下面的才有snap_items等数据
+            'data'=>$pagData->hidden(['snap_items','snap_address','perpay_id'])->toArray()
+        ];
+        return json($data);
+    }
+
+
+    // 返回orderDetail的具体信息
+    public function getOrderDetail($id){
+        (new IdMustBeInt())->goCheck();
+        $ordermodel = new OrderModel();
+        $result =$ordermodel->getDetailOrder($id);
+        if($result->isEmpty()){
+            return null;
+        }
+        return json($result);
+    }
+
+
 
 }

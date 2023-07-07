@@ -57,5 +57,5 @@ Route::post('api/:version/notify', 'api/:version.Notify/sendNotify');
 //获取订单接口总数
 Route::get('api/:version/orders', 'api/:version.Order/getSummaryOrders');
 
-//获取订单的具体详情
+//获取订单的具体详情情况
 Route::get('api/:version/order/:id', 'api/:version.Order/getOrderDetail',[],['id'=>'\d+']);
